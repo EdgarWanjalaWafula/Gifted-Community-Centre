@@ -120,11 +120,18 @@ add_action( 'widgets_init', 'gifted_community_center_widgets_init' );
  * Enqueue scripts and styles.
  */
 function gifted_community_center_scripts() {
+	wp_enqueue_style( 'gifted-community-center-ionicons', 'https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css' );
+	wp_enqueue_style( 'gifted-community-center-aos', get_template_directory_uri() . '/css/aos.css' );
+	wp_enqueue_style( 'gifted-community-center-base', get_template_directory_uri() . '/css/bootstrap.min.css' );
+	wp_enqueue_style( 'gifted-community-center-animate', get_template_directory_uri() . '/css/animate.css' );
+	wp_enqueue_style( 'gifted-community-center-fonts', 'https://fonts.googleapis.com/css?family=Josefin+Sans:400,600|Montserrat:400,500,600&display=swap' );
 	wp_enqueue_style( 'gifted-community-center-style', get_stylesheet_uri() );
-
-	wp_enqueue_script( 'gifted-community-center-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
-
-	wp_enqueue_script( 'gifted-community-center-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script( 'gifted-community-center-popper', get_template_directory_uri() . '/js/popper.min.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-base-js', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-main', get_template_directory_uri() . '/js/main.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-aos', get_template_directory_uri() . '/js/aos.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-scrollax', get_template_directory_uri() . '/js/scrollax.min.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -151,6 +158,10 @@ require get_template_directory() . '/inc/template-functions.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+/**
+ * Customizer additions.
+ */
+require get_template_directory() . '/inc/bs4navwalker.php';
 
 /**
  * Load Jetpack compatibility file.

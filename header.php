@@ -21,38 +21,63 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'gifted-community-center' ); ?></a>
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$gifted_community_center_description = get_bloginfo( 'description', 'display' );
-			if ( $gifted_community_center_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $gifted_community_center_description; /* WPCS: xss ok. */ ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="2" stroke="#dfdfdf"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#0971b9"/></svg></div>
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'gifted-community-center' ); ?></button>
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'menu-1',
-				'menu_id'        => 'primary-menu',
-			) );
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+	<!-- Sidemenu  -->
+	<section class="menu-drawer d-none">
+		<div class="card rounded-0 border-0 bg-transparent ">
+			
+			<!-- Links  -->
+			<div class="card-body card-contents">
+				<?php 
+					wp_nav_menu(
+						array(
+							'theme_location'  => 'mobile',
+							'menu_id'         => 'side-menu-items',
+							'menu_class'      => 'side-menu-items list-unstyled text-uppercase',
+							'depth'           => 1,
+							'fallback_cb'     => '',
+						)
+					); 
+				?>
+			</div> 
+		</div>
+	</section>
+	
+	<div id="page" class="site">
 
-	<div id="content" class="site-content">
+			<header id="masthead" class="site-header gcc-header">
+				<div class="container bg-light">
+					<div class="row">
+						<nav class="navbar navbar-expand-md w-100">
+							<!-- Site logo  -->
+							<?php the_custom_logo(''); ?>
+
+							<!-- Toggle Button -->
+							<div class="toggle-container menu-drawer-button">
+								<span></span>
+								<span></span>
+								<span></span>
+							</div>
+							<?php
+								wp_nav_menu([
+									'menu'            => 'menu-1',
+									'theme_location'  => 'menu-1',
+									'container'       => 'div',
+									'container_id'    => 'bs4navbar',
+									'container_class' => 'collapse navbar-collapse justify-content-end w-100',
+									'menu_id'         => false,
+									'menu_class'      => 'navbar-nav gcc-menu',
+									'depth'           => 2,
+									'fallback_cb'     => 'bs4navwalker::fallback',
+									'walker'          => new bs4navwalker()
+								]);
+							?>
+						</nav>
+					</div>
+				</div>
+			</header><!-- #masthead -->
+
+		<div id="content" class="site-content">
