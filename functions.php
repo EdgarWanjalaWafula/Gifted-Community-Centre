@@ -45,6 +45,8 @@ if ( ! function_exists( 'gifted_community_center_setup' ) ) :
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
 			'menu-1' => esc_html__( 'Primary', 'gifted-community-center' ),
+			'menu-2' => esc_html__( 'Footer Menu', 'gifted-community-center' ),
+			'menu-3' => esc_html__( 'Mobile Side Menu', 'gifted-community-center' ),
 		) );
 
 		/*
@@ -110,8 +112,18 @@ function gifted_community_center_widgets_init() {
 		'description'   => esc_html__( 'Add widgets here.', 'gifted-community-center' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h6 class="widget-title"><span>',
+		'after_title'   => '</span></h6>',
+	) );
+
+	register_sidebar( array(
+		'name'          => esc_html__( 'Programs Sidebar', 'gifted-community-center' ),
+		'id'            => 'program-sidebar',
+		'description'   => esc_html__( 'Add widgets here.', 'gifted-community-center' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h6 class="widget-title"><span>',
+		'after_title'   => '</span></h6>',
 	) );
 }
 add_action( 'widgets_init', 'gifted_community_center_widgets_init' );
@@ -120,18 +132,26 @@ add_action( 'widgets_init', 'gifted_community_center_widgets_init' );
  * Enqueue scripts and styles.
  */
 function gifted_community_center_scripts() {
+	wp_enqueue_style( 'gifted-community-center-gallery-css', 'https://cdn.rawgit.com/sachinchoolur/lightgallery.js/master/dist/css/lightgallery.css' );
 	wp_enqueue_style( 'gifted-community-center-ionicons', 'https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css' );
+	wp_enqueue_style( 'gifted-community-center-flaticon', get_template_directory_uri() . '/icons/font/flaticon.css' );
+	wp_enqueue_style( 'gifted-community-center-owl', get_template_directory_uri() . '/css/owl.carousel.min.css' );
+	wp_enqueue_style( 'gifted-community-center-owl-theme', get_template_directory_uri() . '/css/owl.theme.default.min.css' );
 	wp_enqueue_style( 'gifted-community-center-aos', get_template_directory_uri() . '/css/aos.css' );
 	wp_enqueue_style( 'gifted-community-center-base', get_template_directory_uri() . '/css/bootstrap.min.css' );
 	wp_enqueue_style( 'gifted-community-center-animate', get_template_directory_uri() . '/css/animate.css' );
-	wp_enqueue_style( 'gifted-community-center-fonts', 'https://fonts.googleapis.com/css?family=Josefin+Sans:400,600|Montserrat:400,500,600&display=swap' );
 	wp_enqueue_style( 'gifted-community-center-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'gifted-community-center-mobile', get_template_directory_uri() . '/css/mobile.css' );
+	wp_enqueue_style( 'gifted-community-center-fonts', 'https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Roboto:400,500,700&display=swap' );
 	wp_enqueue_script( 'gifted-community-center-popper', get_template_directory_uri() . '/js/popper.min.js', array(), '', true );
 	wp_enqueue_script( 'gifted-community-center-base-js', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '', true );
-	wp_enqueue_script( 'gifted-community-center-main', get_template_directory_uri() . '/js/main.js', array(), '', true );
 	wp_enqueue_script( 'gifted-community-center-aos', get_template_directory_uri() . '/js/aos.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-owl', get_template_directory_uri() . '/js/owl.carousel.min.js', array(), '', true );
 	wp_enqueue_script( 'gifted-community-center-scrollax', get_template_directory_uri() . '/js/scrollax.min.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-parallax', get_template_directory_uri() . '/js/parallax.min.js', array(), '', true );
 	wp_enqueue_script( 'gifted-community-center-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-gallery-js', 'https://cdn.rawgit.com/sachinchoolur/lightgallery.js/master/dist/js/lightgallery.js', array(), '', true );
+	wp_enqueue_script( 'gifted-community-center-main', get_template_directory_uri() . '/js/main.js', array(), '', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -169,4 +189,3 @@ require get_template_directory() . '/inc/bs4navwalker.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-

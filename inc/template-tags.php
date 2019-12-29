@@ -138,6 +138,7 @@ if ( ! function_exists( 'gifted_community_center_post_thumbnail' ) ) :
 				'alt' => the_title_attribute( array(
 					'echo' => false,
 				) ),
+				'class'=> 'blog-posts-img'
 			) );
 			?>
 		</a>
@@ -146,3 +147,61 @@ if ( ! function_exists( 'gifted_community_center_post_thumbnail' ) ) :
 		endif; // End is_singular().
 	}
 endif;
+
+// Customize date output
+
+if(! function_exists( 'gcc_posted_on' )){
+	function gcc_posted_on(){
+
+		$dateposted = get_the_date('d M,Y'); 
+		echo "<span class='gcc-date-posted small'>"; 
+		echo $dateposted;
+		echo "</span>"; 
+	}
+}
+
+if(! function_exists('gcc_custom_blog_footer')){
+	function gcc_custom_blog_footer(){
+		echo "<a href='";
+		echo get_the_permalink();
+		echo "' class='gcc-footer-link gcc-link'";
+		echo ">";
+		echo "Read More"; 
+		echo "</a>";
+	}
+}
+
+// Show Comments count, category and author
+
+if(!function_exists('gcc_after_post_title')){
+	function gcc_after_post_title(){
+		?>
+			<ul class="list-unstyled d-flex w-100 after-post-title small">
+
+				<!-- Show category -->
+				<li>
+					<?php 
+						$categories_list = get_the_category_list( esc_html__( ', ', 'gifted-community-center' ) );
+						
+						if ( $categories_list ) {
+							printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'gifted-community-center' ) . '</span>', $categories_list ); // WPCS: XSS OK.
+						}
+					?>
+				</li>
+
+				<!-- Show comments number  -->
+				<li>
+					<?php 
+						$gcc_comments_number = comments_number(); 
+
+						if($gcc_comments_number){
+							?>
+								<span class="comments-number"><?php echo $gcc_comments_number; ?></span>
+							<?php 
+						}
+					?>
+				</li>
+			</ul>
+		<?php 
+	}
+}

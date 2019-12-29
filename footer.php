@@ -12,58 +12,81 @@
 ?>
 
     </div><!-- #content -->
-    
-    <section class="facebook-photos gcc-padding">
-        <div class="container-fluid">
-            Facebook images will appear here...
-        </div>
-    </section>
 
-	<footer id="colophon" class="gcc-footer gcc-padding">
-		<div class="site-info container text-white">
-            <div class="row">
-                <div class="col-md-6">
-                    &copy; <?php echo date('Y'); ?> Gifted Community Centre 
-                </div>
-                <div class="col-md-6">
-                    <ul class=" list-unstyled d-flex">
-                        <li class="aos-animate" data-aos="fade-up" data-aos-delay="100"><a href=""><ion-icon class="ion ion-logo-facebook"></ion-icon></a></li>
-                        <li class="aos-animate" data-aos="fade-up" data-aos-delay="200"><a href=""><ion-icon class="ion ion-logo-twitter"></ion-icon></a></li>
-                        <li class="aos-animate" data-aos="fade-up" data-aos-delay="300"><a href=""><ion-icon class="ion ion-logo-instagram"></ion-icon></a></li>
-                        <li class="aos-animate" data-aos="fade-up" data-aos-delay="400"><a href=""><ion-icon class="ion ion-logo-linkedin"></ion-icon></a></li>
-                    </ul>
+    <?php get_template_part('template-parts/homepage/content', 'footer-gallery'); ?>
+
+	<footer id="colophon" class="gcc-footer">
+		<div class="site-info gcc-padding text-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>address</h5>
+                        <ul class="list-unstyled footer-address">
+                            <li><i class="icon ion-ios-call"></i> <span>0725244703</span></li>
+                            <li><i class="icon ion-ios-send"></i> <span>info@localhost</span></li>
+                            <li><i class="icon ion-ios-pin"></i> <span>Karanja Road, Kibera.
+Nairobi, Kenya.</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 footer-border">
+                        <h5>Programs</h5>
+                        <?php 
+                            $arrayName = array('post_type' => 'our_programs');
+
+                            $loop = new WP_QUERY($arrayName);
+                                ?>
+                                    <ul class="list-unstyled"> 
+                                    <?php                                 
+                                    while($loop->have_posts()): $loop->the_post(); 
+                                        ?>
+                                            <li><a href="<?php echo the_permalink(); ?>"><?php echo the_title(); ?></a></li>
+                                        <?php 
+                                    endwhile;
+                                ?>
+                            </ul>
+                    </div>
+                    <div class="col">
+                        <div class="donate-now-col position-relative">
+                            <i class="flaticon-heart"></i>
+                            <h5>thank you</h5>
+                            <p>We thank you for partnering with us; it is acts like yours that enable us to make it happen for thousands of persons with disabilities in Kenya.</p> 
+                            <p>To donate, you can also write to us to request for our banking information for direct wiring and we shall be happy to provide the details OR visit our <a class="text-uppercase" href="<?php echo home_url('donate-now'); ?>">Donate page</a> </p> 
+                            <!-- <a href="<?php //echo home_url('donate-now'); ?>" class="text-uppercase primary-gcc-color bg-light bg-light text-center gcc-br">donate now</a> -->
+                        </div>
+                    </div>
                 </div>
             </div>
 		</div><!-- .site-info -->
     </footer><!-- #colophon -->    
-    
-    <!-- Modal -->
-    <div class="modal fade gcc-youtube-video" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg bg-transparent border-0 rounded-0" role="document">
-            <div class="modal-content bg-transparent border-0 rounded-0">
-                <ion-icon class="icon ion-ios-close close" data-dismiss="modal" aria-label="Close"></ion-icon>  
-                <div class="modal-body text-center">
-                    <?php 
-                        if(get_field('youtube_video')){
-                            
-                            // Fetch Youtube thumbnail 
-                            $field = get_field('youtube_video'); 
-                            $video_id = explode("?v=", $field);
-                            $video_id = $video_id[1];
 
-                            // Add video to iframe 
-                            ?>
-                            <iframe width="740" height="400" src="https://www.youtube-nocookie.com/embed/<?php echo $video_id; ?>?mode=opaque&amp;rel=0&amp;autohide=1&amp;showinfo=0&amp;wmode=transparent&amp;enablejsapi=1" frameborder="0" showinfo="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <?php 
-                        } else {
-                            ""; 
-                        }
-                    ?>  
-                </div>
+    <div class="copyright small">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-3">
+                <ul class="gcc-social-icons list-unstyled d-flex p-0 m-0">
+                    <li><a target="_blank" href="https://www.facebook.com/giftedPWDcentre/"><ion-icon class="ion ion-logo-facebook"></ion-icon></a></li>
+                    <li><a target="_blank" href="https://twitter.com/giftedpwdcentre"><ion-icon class="ion ion-logo-twitter"></ion-icon></a></li>
+                    <li><a target="_blank" href="https://www.instagram.com/giftedpwdcenter/"><ion-icon class="ion ion-logo-instagram"></ion-icon></a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/company/nowd-trust/about/"><ion-icon class="ion ion-logo-linkedin"></ion-icon></a></li>
+                    <li><a target="_blank" href="https://www.youtube.com/channel/UCCYAPAGRnt1D13eFz0gSWLQ"><ion-icon class="ion ion-logo-youtube"></ion-icon></a></li>
+                </ul>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col ">
+                <p>Gifted Community Centre &copy; <?php echo date('Y'); ?> | Designed & Developed by <a class="primary-gcc-color" href="">318</a></p>
             </div>
         </div>
+        </div> 
+
     </div>
 </div><!-- #page -->
+
+<script type="text/javascript">
+var _userway_config = {
+account: '6QSKL6yT5X'
+};
+</script>
+<script type="text/javascript" src="https://usrwy.com/widget.js"></script>
 
 <?php wp_footer(); ?>
 
